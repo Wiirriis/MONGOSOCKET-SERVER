@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Prueba Socket</title>
+</head>
+
+<body>
+    <h1>Prueba socket</h1>
+</body>
+
+</html>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/2.0.3/socket.io.js"></script>
+
+<script>
+    (function () {
+        /* var element = function(id){
+            return document.getElementById(id);
+        } */
+
+        
+        var socket = io.connect('http://localhost:4001');
+
+        socket.on('changes', function (data) {
+            console.log(data);
+            render(data);
+        });
+
+        function render(data) {
+            var html = data.map(function (elem, index) {
+                return (`<div>
+        <strong>${elem.relay}</strong>:
+        <em>${elem.value}</em>
+        </div>`);
+            }).join(" ");
+
+            document.getElementById('changes').innerHTML = html;
+        }
+
+
+
+
+
+        
+        /* if (socket !== undefined) {
+            console.log('Connected to socket...');
+
+        
+            socket.on('changes', function (data) {
+                console.log(data.relay);
+                console.log(data.value);
+                if(data.length){
+                  for(var x = 0;x < data.length;x++){
+        
+                    console.log(data.relay);
+                  console.log(data.value);
+                var relays = document.createElement('div');
+                relays.setAttribute('class', 'chat-message');
+                relays.textContent = data[x].relay+": "+data[x].relays;
+                relays.appendChild(relays);
+                relays.insertBefore(relays, relays.firstChild);
+                }
+                }
+            });
+            
+            
+                            socket.on('status', function(data){
+                                
+                                setStatus((typeof data === 'object')? data.message : data);
+
+                                
+                                if(data.clear){
+                                    textarea.value = '';
+                                }
+                            });
+
+                            
+                            textarea.addEventListener('keydown', function(event){
+                                if(event.which === 13 && event.shiftKey == false){
+                                    
+                                    socket.emit('input', {
+                                        name:username.value,
+                                        message:textarea.value
+                                    });
+
+                                    event.preventDefault();
+                                }
+                            })
+
+                            
+                            clearBtn.addEventListener('click', function(){
+                                socket.emit('clear');
+                            });
+
+                            
+                            socket.on('cleared', function(){
+                                messages.textContent = '';
+                            });
+        }
+ */
+    })();
+</script>
+</body>
+
+</html>
